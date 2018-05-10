@@ -32,7 +32,12 @@ public class StudentAction {
     public void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out  = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
-        out.println("test query");
+        String id = request.getParameter("id");
+        Student param = new Student();
+        param.setId(Long.parseLong(id));
+        List<Student> studentList = studentDao.queryList(param);
+        String result = JSON.toJSONString(studentList);
+        out.println(result);
         out.flush();
     }
 

@@ -66,6 +66,12 @@
         FROM student limit #start#,#size#
     </select>
 
+    <select id="selectListByPageFast" parameterClass="java.util.Map"  resultMap="studentResultMap">
+        select id,name,addr
+        FROM student
+        where id >=(select id from student limit #start#,1) limit #size#;
+    </select>
+
     <select id="selectCount" parameterClass="java.util.Map"  resultClass="java.lang.Integer">
         select count(1) FROM student;
     </select>
