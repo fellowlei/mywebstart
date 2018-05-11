@@ -1,17 +1,19 @@
 package com.mark.domain;
 
-import com.mark.util.MurmurHash;
+import com.mark.base.DBBase;
 
 /**
  * Created by fellowlei on 2018/5/10.
  */
-public class Student {
+public class Student extends DBBase {
     private long id;
     private String name;
     private String addr;
     private String tbName;
 
     public Student(String name, String addr) {
+        this.dbCount = 1;
+        this.tbCount = 3;
         this.name = name;
         this.addr = addr;
         initTbName();
@@ -19,7 +21,8 @@ public class Student {
     }
 
     public void initTbName() {
-        this.tbName = "student_" + (Math.abs(MurmurHash.hash64(name)) % 3);
+        int tbIndex = getTBIndex(hash(name));
+        this.tbName = "student_" + tbIndex;
     }
 
     public Student() {
