@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="student_split">
+
+    <typeAlias alias="student" type="com.mark.domain.Student" />
+    <resultMap id="studentResultMap" class="com.mark.domain.Student">
+        <result property="id" column="id"></result>
+        <result property="name" column="name"></result>
+        <result property="addr" column="addr"></result>
+    </resultMap>
+
+    <insert id="insert" parameterClass="com.mark.domain.Student" >
+        INSERT INTO $tbName$ (
+              name,
+              addr,
+              created,
+              modified
+        )
+        VALUES
+            (
+                #name#,
+                #addr#,
+                NOW(),
+                NOW()
+            )
+    </insert>
+
+    <insert id="batchInsert" parameterClass="java.util.List">
+        <![CDATA[
+        insert into $tbName$ (
+          name,
+          addr,
+          created,
+          modified
+        )
+        values
+        ]]>
+        <iterate conjunction ="," >
+            <![CDATA[
+            (
+                #list[].name#,
+                #list[].addr#,
+                NOW(),
+                NOW()
+            )
+            ]]>
+        </iterate>
+    </insert>
+
+    <select id="selectList" parameterClass="com.mark.domain.Student"  resultMap="studentResultMap">
+        select id,name,addr
+        FROM $tbName$
+        WHERE
+        1=1
+        <isNotEmpty property="id">
+            AND id = #id#
+        </isNotEmpty>
+        <isNotEmpty property="name">
+            AND name = #name#
+        </isNotEmpty>
+    </select>
+
+
+    <select id="selectListByPage" parameterClass="java.util.Map"  resultMap="studentResultMap">
+        select id,name,addr
+        FROM $tbName$ limit #start#,#size#
+    </select>
+
+    <select id="selectListByPageFast" parameterClass="java.util.Map"  resultMap="studentResultMap">
+        select id,name,addr
+        FROM $tbName$
+        where id >=(select id from student limit #start#,1) limit #size#;
+    </select>
+
+    <select id="selectCount" parameterClass="java.util.Map"  resultClass="java.lang.Integer">
+        select count(1) FROM $tbName$;
+    </select>
+
+</sqlMap>

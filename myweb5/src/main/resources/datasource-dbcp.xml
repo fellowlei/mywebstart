@@ -32,5 +32,9 @@
         <property name="sqlMapClient" ref="sqlMapClient" />
     </bean>
 
+    <bean id="studentSplitDao" class="com.mark.dao.impl.StudentSplitDaoImpl">
+        <property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
 
 </beans>

@@ -9,5 +9,6 @@
               defaultStatementTimeout="30" />
 
     <sqlMap resource="sqlmap/student.xml" />
+    <sqlMap resource="sqlmap/student_split.xml" />
 
 </sqlMapConfig>
