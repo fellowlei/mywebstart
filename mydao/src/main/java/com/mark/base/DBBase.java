@@ -10,8 +10,13 @@ import com.mark.util.MurmurHash;
  * ３、表序号　＝　中间变量％每个库的表数量;
  */
 public class DBBase{
-    protected int dbCount = 1;
-    protected int tbCount = 3;
+    private int dbCount;
+    private int tbCount;
+
+    public DBBase(int dbCount, int tbCount) {
+        this.dbCount = dbCount;
+        this.tbCount = tbCount;
+    }
 
     public int getDBIndex(int id){
         int mid = id %(dbCount * tbCount);
@@ -39,7 +44,7 @@ public class DBBase{
     }
 
     public static void main(String[] args) {
-        DBBase dbBase = new DBBase();
+        DBBase dbBase = new DBBase(1,3);
         for(int i=0; i<10;i++){
             String msg = String.format("db:%s,tb:%s", dbBase.getDBIndex(i), dbBase.getTBIndex(i));
             System.out.println(msg);

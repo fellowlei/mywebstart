@@ -5,23 +5,21 @@ import com.mark.base.DBBase;
 /**
  * Created by fellowlei on 2018/5/10.
  */
-public class Student extends DBBase {
+public class Student {
     private long id;
     private String name;
     private String addr;
     private String tbName;
+    private DBBase dbBase = new DBBase(1,3);
 
     public Student(String name, String addr) {
-        this.dbCount = 1;
-        this.tbCount = 3;
         this.name = name;
         this.addr = addr;
         initTbName();
-        System.out.println("####" + tbName);
     }
 
     public void initTbName() {
-        int tbIndex = getTBIndex(name);
+        int tbIndex = dbBase.getTBIndex(name);
         this.tbName = "student_" + tbIndex;
     }
 
