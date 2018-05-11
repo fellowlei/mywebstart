@@ -28,6 +28,16 @@ public class DBBase{
         return Math.abs(MurmurHash.hash32(key));
     }
 
+    public int getTBIndex(String key){
+        int tbIndex = getTBIndex(hash(key));
+        return tbIndex;
+    }
+
+    public int getDBIndex(String key){
+        int dbIndex = getDBIndex(hash(key));
+        return dbIndex;
+    }
+
     public static void main(String[] args) {
         DBBase dbBase = new DBBase();
         for(int i=0; i<10;i++){

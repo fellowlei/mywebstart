@@ -21,7 +21,7 @@ public class Student extends DBBase {
     }
 
     public void initTbName() {
-        int tbIndex = getTBIndex(hash(name));
+        int tbIndex = getTBIndex(name);
         this.tbName = "student_" + tbIndex;
     }
 
