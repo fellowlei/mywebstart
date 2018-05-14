@@ -57,4 +57,8 @@ public class Student {
     public void setTbName(String tbName) {
         this.tbName = tbName;
     }
+
+    public DBBase getDbBase() {
+        return dbBase;
+    }
 }
